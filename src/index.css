@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  
+  --animate-fade-in: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-5vh) rotate(0deg);
+  }
+  100% {
+    transform: translateY(112vh) rotate(var(--rotate-to, 360deg));
+  }
+}
+
+@keyframes sway {
+  0%, 100% {
+    margin-left: 0;
+  }
+  50% {
+    margin-left: var(--sway-distance, 30px);
+  }
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-118vh) translateY(-160px);
+  }
+}
+
+@keyframes balloonSway {
+  0%, 100% {
+    margin-left: 0;
+    transform: rotate(var(--tilt-angle, 0deg));
+  }
+  50% {
+    margin-left: var(--sway-distance, 40px);
+    transform: rotate(calc(var(--tilt-angle, 0deg) * -1.2));
+  }
+}
+
+.snowflake-particle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 40;
+  will-change: transform;
+  top: -35px;
+  animation: fall var(--fall-duration) linear forwards, sway var(--sway-duration) ease-in-out infinite;
+}
+
+.balloon-particle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 40;
+  will-change: transform;
+  bottom: -150px; /* Force start below the viewport boundary */
+  left: 0;
+  animation: floatUp var(--float-duration) linear forwards;
+}
+
+.balloon-inner {
+  will-change: transform, margin-left;
+  animation: balloonSway var(--sway-duration) ease-in-out infinite;
+}
+
